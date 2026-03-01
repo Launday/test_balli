@@ -1,0 +1,14 @@
+/bitrix/
+/upload/
+/managed_cache/
+/cache/
+/logs/
+/bitrix_backup/
+/dbconn.php
+*.log
+*.bak
+*.tmp
+*.swp
+.idea/
+*.iml
+.DS_Store
