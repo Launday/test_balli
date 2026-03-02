@@ -60,7 +60,7 @@ if(isset($_POST['subtract_submit'])){
 ?>
 
 <a href="index.php">Назад</a>
-<a href="Swagger/index.php">Сваггер</a>
+<a href="swagger/index.php">Сваггер</a>
 <h1>Личный кабинет</h1>
 <h2>ID пользователя: <?= $userID ?></h2>
 <h2>Баланс: <?= $userBalance ?></h2>

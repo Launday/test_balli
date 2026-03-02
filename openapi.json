@@ -1,0 +1,137 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API пользователей",
+    "description": "Методы для работы с балансом и операциями пользователей",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/balance.php": {
+      "get": {
+        "summary": "Получить баланс пользователя",
+        "description": "Возвращает текущий баланс пользователя по его ID",
+        "tags": ["Пользователи"],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "ID пользователя",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user_id": {
+                      "type": "integer",
+                      "description": "ID пользователя"
+                    },
+                    "balance": {
+                      "type": "integer",
+                      "description": "Текущий баланс"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Ошибка в запросе",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "Текст ошибки"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/transactions.php": {
+      "get": {
+        "summary": "Получить историю операций",
+        "description": "Возвращает список операций пользователя (начисления/списания)",
+        "tags": ["Пользователи"],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "ID пользователя",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Количество записей",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успешный ответ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user_id": {
+                      "type": "integer",
+                      "description": "ID пользователя"
+                    },
+                    "transactions": {
+                      "type": "array",
+                      "description": "Список операций",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "ID операции"
+                          },
+                          "date": {
+                            "type": "string",
+                            "description": "Дата и время"
+                          },
+                          "amount": {
+                            "type": "integer",
+                            "description": "Сумма"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "Тип операции (add/subtract)"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
