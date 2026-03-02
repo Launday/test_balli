@@ -4,18 +4,13 @@ $APPLICATION->SetTitle("Личный кабинет");
 
 use Bitrix\Main\Loader;
 Loader::includeModule("iblock");
-
 global $USER;
 $userID = $USER->GetID();
-$rsUser = CUser::GetByID($userID);
-$rsUser = $rsUser->Fetch();
-$userBalance = $rsUser["UF_BALANCE"];
+$userBalance = getUserBalanceById($userID);
 
-$arFilter = ["IBLOCK_ID" => 1,"PROPERTY_USER_ID" => $userID,"ACTIVE" => "Y"];
-$arSort = ["ID" => "DESC"];
-$arSelect = ["ID","NAME","DATE_CREATE","PROPERTY_AMOUNT","PROPERTY_TYPE"];
 $pageSize = 10;
-$transactions = CIBlockElement::GetList($arSort,$arFilter,false,["nPageSize" => $pageSize],$arSelect);
+$transactions = getUserTransactionsById($userID, $pageSize);
+
 
 if(isset($_POST['add_submit'])){
     $amount = (int)$_POST['add_amount'];
@@ -65,6 +60,7 @@ if(isset($_POST['subtract_submit'])){
 ?>
 
 <a href="index.php">Назад</a>
+<a href="Swagger/index.php">Сваггер</a>
 <h1>Личный кабинет</h1>
 <h2>ID пользователя: <?= $userID ?></h2>
 <h2>Баланс: <?= $userBalance ?></h2>
